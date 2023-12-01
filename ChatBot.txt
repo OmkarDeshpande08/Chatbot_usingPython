@@ -1,0 +1,111 @@
+import random 
+import datetime
+import requests
+import pyttsx3
+
+
+hello=["hi","you there?","hello",]
+what=["what can you do?","what are your features?"]
+bye=["bye","i am going","nice talking to you"]
+name=["what is your name?","do you have any name?","how to call you?"]
+date=["what is todays date?","date?","what is date today?"]
+time=["what time is it now?","exact time now?","time?","tell me time now"]
+day=["what day is it today?","which day is today?","tell me todays date","day?"]
+thanks=["thanks","thank you","ok thank you"]
+fine=["how are you?","how are you doing?"]
+ans=["i am fine","fine","good","i am good","i am also fine","all good"]
+weather=["weather forecast","weather info","weather report"]
+talk=["can you talk?","talk"]
+
+print("********CHAT BOT WELCOMES YOU***************** \n")
+print("BOT:: how may i help you? \n")
+
+
+while (1):
+    a=input('you :')
+
+    if a.lower() in hello:
+        botans=["hello boss!","namaste :)","chat bot welcomes you :)","greetings!!"]
+        print('BOT:: '+random.choice(botans)+'\n')
+    
+    elif a.lower() in bye:
+        botans=["see you soon!","byee take care","come back soon","nice talking to you :)"]
+        print('BOT:: '+random.choice(botans)+'\n')
+        print("\n")
+        break
+    
+    elif a.lower() in name:
+        botans=["you can call me joker","my name is joker","i am known as joker"]
+        print('BOT:: '+random.choice(botans)+'\n')
+
+    elif a.lower() in date:
+        print("BOT:: ")
+        print( datetime.datetime.now())
+    
+    elif a.lower()in time:
+        print("BOT:: ")
+        print(datetime.datetime.now())
+
+    elif a.lower()in day:
+        print("BOT:: today is ")
+        x = datetime.datetime.now()
+        print(x.strftime("%A")+"\n")
+
+    elif a.lower() in thanks:
+        botans=["you are welcome!","no problem anytime :)","my pleasure :)"]
+        print('BOT:: '+random.choice(botans)+'\n')
+
+    elif a.lower() in fine:
+        botans=["i am fine :) ","i am always happy!!"]
+        print('BOT:: '+random.choice(botans)+'\n')
+        print("BOT:: how are you? ")
+
+    elif a.lower() in ans:
+        botans=[" thats awesome ! how can i help you??","great! how can i help you?"]
+        print('BOT:: '+random.choice(botans)+'\n')
+
+    elif a.lower() in weather:
+        city_name = input("BOT:: Enter the name of the City : ")
+        print("BOT:: sure! hold on \n")
+        def Gen_report(C):
+             url = 'https://wttr.in/{}'.format(C)
+             try:
+                data = requests.get(url)
+                T = data.text
+             except:
+                T = "Error Occurred"
+             print(T)
+        Gen_report(city_name)
+    
+    elif a.lower()in what:
+        botans=["i can tell date, time, day. You can also see weather forecast of any city .I also have special feature of text to speech"]
+        print('BOT:: '+random.choice(botans)+'\n')
+
+    elif a.lower() in talk:
+        bot=pyttsx3.init()
+        voices = bot.getProperty('voices')
+        bot.setProperty('voice', voices[1].id)
+        bot.say("now i am learning to speak...what do you want me to say?")
+        bot.runAndWait()
+        
+        answer=input("what do you want me to say?::")
+        bot.say(answer)
+        bot.runAndWait()
+        while(1):
+            bot.say("do you want to hear more from me? press 1 for yes else 0 for no")
+            bot.runAndWait()
+            yes=int(input("BOT:: press 1 for yes else 0 for no:: "))
+            if yes==1:
+                answer=input("what else you want me to say?::")
+                bot.say(answer)
+                bot.runAndWait()
+            elif yes==0:
+                print("It was nice talking to you!")
+                bot.say("It was nice talking to you!")
+                bot.runAndWait()
+                print("choose different task..")
+                break   
+
+    else:
+        print('sorry! i didnt get you try again :( '+'\n')
+    
